@@ -4,6 +4,13 @@ Webpack HUD, for showing error messages
 
 > ...make Webpack look like [Figwheel](https://github.com/bhauman/lein-figwheel).
 
+Demo https://www.youtube.com/watch?v=i-qGt-7nxVg
+
+### Usage
+
+```bash
+npm i --save-dev webpack-hud
+```
 
 ```js
 module.exports = {
