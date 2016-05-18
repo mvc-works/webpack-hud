@@ -1,0 +1,23 @@
+{
+  "dependencies": {
+    "sockjs-client": "^1.1.0",
+    "strip-ansi": "^3.0.1"
+  },
+  "devDependencies": {
+    "json-loader": "^0.5.4",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "name": "webpack-hud",
+  "description": "Webpack HUD, for showing error messages ----",
+  "version": "0.0.2",
+  "main": "src/hud.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "jiyinyiyong",
+  "license": "MIT"
+}
