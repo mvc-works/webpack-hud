@@ -19,5 +19,13 @@
     "webpack"
   ],
   "author": "jiyinyiyong",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mvc-works/webpack-hud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mvc-works/webpack-hud/issues"
+  },
+  "homepage": "https://github.com/mvc-works/webpack-hud#readme"
 }
