@@ -23,9 +23,10 @@ var currentHash = "";
 
 var display;
 var timeoutRef;
+var hudPanel;
 
-window.addEventListener('load', function(){
-    var hudPanel = document.createElement('div');
+(function(){
+    hudPanel = document.createElement('div');
     hudPanel.className = 'hud-panel is-inactive';
     var styleEl = document.createElement('style');
     styleEl.innerHTML = `
@@ -34,50 +35,57 @@ window.addEventListener('load', function(){
         bottom: 0px;
         left: 0;
         width: 100%;
-        min-height: 40px;
         padding: 16px;
         font-size: 12px;
         line-height: 1.5;
-        max-height: 100%;
+        max-height: 0%;
         overflow: auto;
-    }
-    .hud-panel pre {
-        font-family: Source Code Pro, Menlo, Consolas, monospace; 
-    }
-    .hud-panel.is-inactive {
-        display: none;
-    }
-    .hud-panel.is-error {
-        background-color: hsl(0, 100%, 68%);
-        color: white;
-    }
-    .hud-panel.is-warning {
-        background-color: hsl(50,80%,68%);
+        font-family: Source Code Pro, Menlo, Consolas, monospace;
+        white-space: pre;
+        transition-duration: 300ms;
+        opacity: 1;
         color: black;
     }
+    .hud-panel.is-inactive {
+        overflow: hidden;
+        opacity: 0;
+        max-height:0%;
+    }
+    .hud-panel.is-error {
+        background-color: hsla(0, 100%, 75%, 0.92);
+        max-height: 100%;
+    }
+    .hud-panel.is-warning {
+        background-color: hsla(50, 100%, 70%, 0.84);
+        max-height: 80%;
+    }
     .hud-panel.is-ok {
-        color: white;
-        background-color: hsl(120,60%,70%);
-        font-size: 20px;
+        background-color: hsla(120, 49%, 60%, 0.28);
+        max-height: 10%;
     }
     `;
-    var msgEl = document.createElement('pre');
-    hudPanel.appendChild(styleEl)
+    var msgEl = document.createElement('div');
+    hudPanel.appendChild(styleEl);
     hudPanel.appendChild(msgEl);
-    document.body.appendChild(hudPanel);
+    
     display = function(hudType, hudMessage) {
-        msgEl.innerHTML = hudMessage;
-        hudPanel.className = `hud-panel is-${hudType}`
+        msgEl.innerText = hudMessage;
+        hudPanel.className = `hud-panel is-${hudType}`;
         if (hudType == 'ok') {
             timeoutRef = setTimeout(function() {
-                display('inactive', '');
+               display('inactive', '');
             }, 2000);
         } else {
             clearTimeout(timeoutRef);
         }
     };
 
+})();
+
+window.addEventListener('load', function() {
+    document.body.appendChild(hudPanel);
 });
+
 var onSocketMsg = {
 	hot: function() {
 		hot = true;
@@ -91,16 +99,16 @@ var onSocketMsg = {
 	},
 	"still-ok": function() {
 		// console.log("[WDS] Nothing changed.")
-        display('ok', 'OK')
+        display('ok', 'OK');
 	},
 	ok: function() {
-        display('ok', 'OK')
+        display('ok', 'OK');
 		if(initial) return initial = false;
 	},
 	warnings: function(warnings) {
 		// console.log("[WDS] Warnings while compiling.");
         var warningMsg = warnings.map(function(warning) {
-            return stripAnsi(warning)
+            return stripAnsi(warning);
         }).join('\n');
         display('warning', warningMsg);
 		if(initial) return initial = false;
