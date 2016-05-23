@@ -2,8 +2,6 @@
 Webpack HUD, for showing error messages in page
 ----
 
-** Unsolved Issue in htmldiff https://github.com/tbranyen/diffhtml/issues/67 **
-
 > ...like [Figwheel](https://github.com/bhauman/lein-figwheel).
 
 Demo https://www.youtube.com/watch?v=i-qGt-7nxVg
