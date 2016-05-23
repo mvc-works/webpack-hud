@@ -2,13 +2,15 @@
 Webpack HUD, for showing error messages in page
 ----
 
+** Unsolved Issue in htmldiff https://github.com/tbranyen/diffhtml/issues/67 **
+
 > ...like [Figwheel](https://github.com/bhauman/lein-figwheel).
 
 Demo https://www.youtube.com/watch?v=i-qGt-7nxVg
 
 Warning message in the demo is genetated
 by [eslint-loader](https://github.com/MoOx/eslint-loader)
-with [`cooking`](http://cookingjs.github.io/).  
+with [`cooking`](http://cookingjs.github.io/).
 
 ### Usage
 

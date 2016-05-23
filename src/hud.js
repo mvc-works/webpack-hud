@@ -5,6 +5,7 @@
 var url = require('url');
 var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
+var renderTip = require('bottom-tip').render;
 
 var scriptElements = document.getElementsByTagName("script");
 var scriptHost = scriptElements[scriptElements.length-1].getAttribute("src").replace(/\/[^\/]+$/, "");
@@ -21,69 +22,21 @@ var hot = false;
 var initial = true;
 var currentHash = "";
 
-var display;
 var timeoutRef;
-var hudPanel;
-
-(function(){
-    hudPanel = document.createElement('div');
-    hudPanel.className = 'hud-panel is-inactive';
-    var styleEl = document.createElement('style');
-    styleEl.innerHTML = `
-    .hud-panel {
-        position: fixed;
-        bottom: 0px;
-        left: 0;
-        width: 100%;
-        padding: 16px;
-        font-size: 12px;
-        line-height: 1.5;
-        max-height: 0%;
-        overflow: auto;
-        font-family: Source Code Pro, Menlo, Consolas, monospace;
-        white-space: pre;
-        transition-duration: 300ms;
-        opacity: 1;
-        color: black;
+var tipElement = document.createElement('div');
+function display(hudType, hudMessage) {
+    if (hudType == 'ok') {
+        timeoutRef = setTimeout(function() {
+            renderTip(tipElement, 'inactive', '');
+        }, 2000);
+    } else {
+        renderTip(tipElement, hudType, hudMessage);
+        clearTimeout(timeoutRef);
     }
-    .hud-panel.is-inactive {
-        overflow: hidden;
-        opacity: 0;
-        max-height:0%;
-    }
-    .hud-panel.is-error {
-        background-color: hsla(0, 100%, 75%, 0.92);
-        max-height: 100%;
-    }
-    .hud-panel.is-warning {
-        background-color: hsla(50, 100%, 70%, 0.84);
-        max-height: 80%;
-    }
-    .hud-panel.is-ok {
-        background-color: hsla(120, 49%, 60%, 0.28);
-        max-height: 10%;
-    }
-    `;
-    var msgEl = document.createElement('div');
-    hudPanel.appendChild(styleEl);
-    hudPanel.appendChild(msgEl);
-    
-    display = function(hudType, hudMessage) {
-        msgEl.innerText = hudMessage;
-        hudPanel.className = `hud-panel is-${hudType}`;
-        if (hudType == 'ok') {
-            timeoutRef = setTimeout(function() {
-               display('inactive', '');
-            }, 2000);
-        } else {
-            clearTimeout(timeoutRef);
-        }
-    };
-
-})();
+};
 
 window.addEventListener('load', function() {
-    document.body.appendChild(hudPanel);
+    document.body.appendChild(tipElement);
 });
 
 var onSocketMsg = {
@@ -110,7 +63,7 @@ var onSocketMsg = {
         var warningMsg = warnings.map(function(warning) {
             return stripAnsi(warning);
         }).join('\n');
-        display('warning', warningMsg);
+        display('warn', warningMsg);
 		if(initial) return initial = false;
 	},
 	errors: function(errors) {
