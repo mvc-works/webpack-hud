@@ -1,7 +1,7 @@
 
 // This file is forked from Webpack, maybe older version, 1.13.x?
 // https://github.com/webpack/webpack-dev-server/blob/v1.14.1/client/live.js
-
+var docReady = require('doc-ready');
 var url = require('url');
 var SockJS = require("sockjs-client");
 var stripAnsi = require('strip-ansi');
@@ -35,7 +35,7 @@ function display(hudType, hudMessage) {
     }
 };
 
-window.addEventListener('load', function() {
+docReady(function() {
     document.body.appendChild(tipElement);
 });
 
