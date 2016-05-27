@@ -4,17 +4,17 @@ module.exports = {
     main: [
       'webpack/hot/only-dev-server',
       'webpack-dev-server/client?http://localhost:8080/',
-      // './src/hud.js',
-      './src/main.js'
+      './example/main.js'
     ]
   },
   output: {
     filename: 'bundle.js',
-    path: 'build/'
+    path: './example'
   },
   module: {
-    loaders: [
-      {test: /\.js$/, loader: 'eslint'}
+    loaders: [,
+      {test: /\.js$/, loader: 'babel'},
+      {test: /demo\.js$/, loader: 'eslint'}
     ]
   },
   eslint: {
