@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "bottom-tip": "0.0.2",
+    "doc-ready": "^1.0.4",
     "sockjs-client": "^1.1.0",
     "strip-ansi": "^3.0.1"
   },
