@@ -4,7 +4,7 @@ module.exports = {
     main: [
       'webpack/hot/only-dev-server',
       'webpack-dev-server/client?http://localhost:8080/',
-      './example/main.js'
+      './main.js'
     ]
   },
   output: {
