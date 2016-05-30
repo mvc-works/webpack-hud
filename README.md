@@ -1,6 +1,8 @@
 
-Webpack HUD, for showing error messages in page
+Webpack HUD, for displaying errors in page
 ----
+
+![](https://pbs.twimg.com/media/CjrPoAWUYAE_77K.png:large)
 
 > ...like [Figwheel](https://github.com/bhauman/lein-figwheel).
 
