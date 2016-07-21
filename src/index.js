@@ -4,7 +4,7 @@ import docReady from 'doc-ready';
 import url from 'url';
 import SockJS from 'sockjs-client';
 import stripAnsi from 'strip-ansi';
-import { render as renderTip } from 'bottom-tip';
+import { renderTip } from 'bottom-tip';
 
 const tipElement = document.createElement('div');
 docReady(() => {
