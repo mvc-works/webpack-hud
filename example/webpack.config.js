@@ -12,12 +12,9 @@ module.exports = {
     path: './example'
   },
   module: {
-    loaders: [,
+    rules: [
       {test: /\.js$/, loader: 'babel'},
       {test: /demo\.js$/, loader: 'eslint'}
     ]
-  },
-  eslint: {
-    emitWarning: true
   }
 }

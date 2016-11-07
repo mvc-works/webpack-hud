@@ -2,7 +2,6 @@
 // https://github.com/webpack/webpack-dev-server/blob/v1.14.1/client/live.js
 import docReady from 'doc-ready';
 import url from 'url';
-import SockJS from 'sockjs-client';
 import stripAnsi from 'strip-ansi';
 import { renderTip } from 'bottom-tip';
 
@@ -14,6 +13,7 @@ docReady(() => {
 let timeoutRef;
 function display(hudType, hudMessage) {
   if (hudType === 'ok') {
+    renderTip(tipElement, 'ok', 'OK');
     timeoutRef = setTimeout(() => {
       renderTip(tipElement, 'inactive', '');
     }, 2000);
@@ -55,42 +55,32 @@ const onSocketMsg = {
   }
 };
 
-// If this bundle is inlined, use the resource query to get the correct url.
-// Else, get the url from the <script> this file was called with.
-const urlParts = (() => {
-  const scriptElements = document.getElementsByTagName('script');
-  const scriptHost = scriptElements[scriptElements.length - 1].getAttribute('src').replace(/\/[^\/]+$/, '');
-
-  /* global __resourceQuery */
-  return url.parse(typeof __resourceQuery === 'string' && __resourceQuery ?
-    __resourceQuery.substr(1) :
-    (scriptHost || '/')
-  );
-})();
-
-let sock;
-(function connect() {
-  sock = new SockJS(url.format({
-    protocol: urlParts.protocol,
-    auth: urlParts.auth,
-    hostname: (urlParts.hostname === '0.0.0.0') ? window.location.hostname : urlParts.hostname,
-    port: urlParts.port,
-    pathname: urlParts.path === '/' ? '/sockjs-node' : urlParts.path
-  }));
-
-  sock.onclose = () => {
-    // Try to reconnect.
-    sock = null;
-    setTimeout(() => {
-      connect();
-    }, 2000);
-  };
-
-  sock.onmessage = (e) => {
-    // This assumes that all data sent via the websocket is JSON.
-    const { type, data } = JSON.parse(e.data);
-    if (onSocketMsg.hasOwnProperty(type)) {
-      onSocketMsg[type](data);
-    }
-  };
-}());
+window.addEventListener('message', function onWebpackMessage (msg) {
+  if (!msg.data || !msg.data.type) return;
+  var webpackMsg = msg.data;
+  console.log(webpackMsg);
+  switch(webpackMsg.type) {
+    case 'webpackOk':
+      display('ok', 'OK');
+      break;
+    case 'webpackStillOK':
+      display('ok', 'StillOk');
+      break;
+    case 'webpackInvalid':
+      // console.log('compiling...');
+      break;
+    case 'webpackWarnings':
+      const warningMsg = webpackMsg.data.map((s) => stripAnsi(s)).join('\n');
+      display('warn', warningMsg);
+      break;
+    case 'webpackErrors':
+      const errorMsg = webpackMsg.data.map((s) => stripAnsi(s)).join('\n');
+      display('warn', errorMsg);
+      break;
+    case 'webpackClose':
+      display('warn', 'Invalid');
+      break;
+    default:
+      console.warn('Unrecognized message:', webpackMsg);
+  }
+}, false);
