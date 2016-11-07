@@ -16,48 +16,16 @@ function display(hudType, hudMessage) {
     renderTip(tipElement, 'ok', 'OK');
     timeoutRef = setTimeout(() => {
       renderTip(tipElement, 'inactive', '');
-    }, 2000);
+    }, 1000);
   } else {
     renderTip(tipElement, hudType, hudMessage);
     clearTimeout(timeoutRef);
   }
 }
 
-let initial = true;
-const onSocketMsg = {
-  'still-ok'() {
-    display('ok', 'OK');
-  },
-  ok() {
-    display('ok', 'OK');
-    if (initial) {
-      initial = false;
-    }
-  },
-  warnings(warnings) {
-    const warningMsg = warnings.map((s) => stripAnsi(s)).join('\n');
-    display('warn', warningMsg);
-    if (initial) {
-      initial = false;
-    }
-  },
-  errors(errors) {
-    const errorMsg = errors.map((s) => stripAnsi(s)).join('\n');
-    display('error', errorMsg);
-    if (initial) {
-      initial = false;
-    }
-  },
-  'proxy-error'() {
-    if (initial) {
-      initial = false;
-    }
-  }
-};
-
 window.addEventListener('message', function onWebpackMessage (msg) {
   if (!msg.data || !msg.data.type) return;
-  var webpackMsg = msg.data;
+  let webpackMsg = msg.data;
   console.log(webpackMsg);
   switch(webpackMsg.type) {
     case 'webpackOk':
