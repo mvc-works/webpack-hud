@@ -14,6 +14,7 @@ docReady(() => {
 let timeoutRef;
 function display(hudType, hudMessage) {
   if (hudType === 'ok') {
+    renderTip(tipElement, 'ok', 'OK');
     timeoutRef = setTimeout(() => {
       renderTip(tipElement, 'inactive', '');
     }, 2000);

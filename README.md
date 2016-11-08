@@ -22,8 +22,6 @@ npm i --save-dev webpack-hud
 module.exports = {
   entry: {
     main: [
-      'webpack/hot/only-dev-server',
-      'webpack-dev-server/client?http://localhost:8080/',
       'webpack-hud', // <-- put package here, before your code
       './src/main.js'
     ]
@@ -47,7 +45,16 @@ module.exports = {
 
 I copied the code to started another Sockjs channel listening to Webpack compilation results.
 And an element is appended to the `<body>` to display the content.
-This solution works in Webpack 1, but I'm not sure about Webpack 2.
+
+### Develop
+
+With latest `webpack-dev-server` it would be simpler.
+
+```bash
+../node_modules/.bin/webpack-dev-server --hot-only --hot
+```
+
+Since `webpack-dev-server` is still updating, check `with-new-api` branch for more.
 
 ### License
 

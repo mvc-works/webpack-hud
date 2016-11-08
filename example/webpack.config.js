@@ -2,22 +2,17 @@
 module.exports = {
   entry: {
     main: [
-      'webpack/hot/only-dev-server',
-      'webpack-dev-server/client?http://localhost:8080/',
       './main.js'
     ]
   },
   output: {
     filename: 'bundle.js',
-    path: './example'
+    path: '/example'
   },
   module: {
-    loaders: [,
+    rules: [
       {test: /\.js$/, loader: 'babel'},
-      {test: /demo\.js$/, loader: 'eslint'}
+      {enforce: "pre", test: /demo\.js$/, loader: 'eslint'}
     ]
-  },
-  eslint: {
-    emitWarning: true
   }
 }
