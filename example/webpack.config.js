@@ -1,4 +1,6 @@
 
+var path = require('path');
+
 module.exports = {
   entry: {
     main: [
@@ -12,7 +14,12 @@ module.exports = {
   module: {
     rules: [
       {test: /\.js$/, loader: 'babel'},
-      {enforce: "pre", test: /demo\.js$/, loader: 'eslint'}
+      {enforce: "pre", test: /demo\.js$/, loader: 'eslint',
+        query: {
+          emitWarning: true,
+          configFile: path.join(__dirname, '../.eslintrc.json')
+        }
+      }
     ]
   }
 }
