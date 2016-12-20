@@ -22,7 +22,7 @@
     "curly": 2,
     "max-len": 0,
     "max-depth": [2, 5],
-    "complexity": [1, 8],
+    "complexity": [1, 10],
     "indent": [2, 2],
     "no-trailing-spaces": 0,
     "one-var": [2, "never"],
