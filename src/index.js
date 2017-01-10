@@ -27,7 +27,7 @@ function handleMessage(msg) {
     return;
   }
   let webpackMsg = msg.data;
-  console.log(webpackMsg);
+  
   switch (webpackMsg.type) {
   case 'webpackOk':
     display('ok', 'OK');
