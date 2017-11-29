@@ -93,12 +93,12 @@
     "no-var": 2,
     "semi": 2,
     "dot-location": [2, "property"],
-    "babel/generator-star-spacing": 1,
+    "generator-star-spacing": 1,
     "babel/new-cap": [2, {"newIsCap": true}],
-    "babel/array-bracket-spacing": [2, "always"],
+    "array-bracket-spacing": [2, "always"],
     "babel/object-curly-spacing": [2, "always"],
-    "babel/object-shorthand": 1,
-    "babel/arrow-parens": 1,
-    "babel/no-await-in-loop": 1
+    "object-shorthand": 1,
+    "arrow-parens": 1,
+    "no-await-in-loop": 1
   }
 }
