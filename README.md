@@ -2,6 +2,8 @@
 Webpack HUD, displaying errors in app
 ----
 
+> Contact me if you'd like to maintain this project!
+
 [![](https://pbs.twimg.com/media/CjrPoAWUYAE_77K.png:large)](https://www.youtube.com/watch?v=i-qGt-7nxVg)
 
 Warning message in the demo is genetated
