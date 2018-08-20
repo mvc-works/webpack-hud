@@ -1,14 +1,6 @@
+## Webpack HUD, displaying errors in app
 
-Webpack HUD, displaying errors in app
-----
-
-> Contact me if you'd like to maintain this project!
-
-[![](https://pbs.twimg.com/media/CjrPoAWUYAE_77K.png:large)](https://www.youtube.com/watch?v=i-qGt-7nxVg)
-
-Warning message in the demo is genetated
-by [eslint-loader](https://github.com/MoOx/eslint-loader)
-with [`cooking`](http://cookingjs.github.io/).
+![Webpack TypeScript demo](https://pbs.twimg.com/media/DlB9RKGUwAMWvBh.png:large)
 
 ### Usage
 
@@ -20,23 +12,27 @@ npm i --save-dev webpack-hud
 module.exports = {
   entry: {
     main: [
-      'webpack-hud', // <-- put package here, before your code
-      './src/main.js'
-    ]
+      "webpack-hud", // <-- put package here, before your code
+      "./src/main",
+    ],
   },
   output: {
-    filename: 'bundle.js',
-    path: 'build/'
+    filename: "bundle.js",
+    path: "build/",
   },
   module: {
-    loaders: [
-      {test: /\.js$/, loader: 'eslint'}
-    ]
+    rules: [
+      {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader",
+        exclude: /node_modules/,
+      },
+    ],
   },
-  eslint: {
-    emitWarning: true
-  }
-}
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+};
 ```
 
 ### How does it work?

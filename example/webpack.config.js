@@ -1,28 +1,27 @@
-
-var path = require('path');
+var path = require("path");
 
 module.exports = {
+  mode: "development",
   entry: {
-    main: [
-      './main.js'
-    ]
+    main: ["./main"],
   },
   performance: {
-    hints: false
+    hints: false,
   },
   output: {
-    filename: 'bundle.js',
-    path: '/example'
+    filename: "bundle.js",
+    path: "/example",
   },
   module: {
     rules: [
-      {test: /\.js$/, loader: 'babel-loader'},
-      {enforce: "pre", test: /demo\.js$/, loader: 'eslint-loader',
-        query: {
-          emitWarning: true,
-          configFile: path.join(__dirname, '../.eslintrc.json')
-        }
-      }
-    ]
-  }
-}
+      {
+        test: /\.tsx?$/,
+        loader: "awesome-typescript-loader",
+        exclude: /node_modules/,
+      },
+    ],
+  },
+  resolve: {
+    extensions: [".tsx", ".ts", ".js"],
+  },
+};
