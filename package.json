@@ -1,6 +1,6 @@
 {
   "name": "webpack-hud",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "main": "lib/index.js",
   "description": "Webpack HUD, for showing error messages",
   "repository": {
@@ -12,11 +12,8 @@
   },
   "homepage": "https://github.com/mvc-works/webpack-hud#readme",
   "scripts": {
-    "lint": "eslint src/ examples/",
-    "fix": "eslint --fix src/",
-    "precompile": "rm -rf lib/; mkdir lib; exit 0",
-    "compile": "babel -d lib/ src",
-    "prepublish": "npm run lint && npm run compile && exit 0"
+    "compile": "rm -rf lib/ && tsc --outDir lib",
+    "prepublish": "yarn compile"
   },
   "keywords": [
     "webpack",
@@ -27,22 +24,15 @@
   "author": "jiyinyiyong",
   "license": "MIT",
   "dependencies": {
-    "bottom-tip": "0.0.4",
+    "bottom-tip": "^0.1.0",
     "doc-ready": "^1.0.4",
-    "sockjs-client": "^1.1.0",
     "strip-ansi": "^4.0.0"
   },
   "devDependencies": {
-    "babel": "^6.5.2",
-    "babel-cli": "^6.9.0",
-    "babel-core": "^6.21.0",
-    "babel-eslint": "^8.0.2",
-    "babel-loader": "^7.1.2",
-    "babel-preset-es2015": "^6.9.0",
-    "eslint": "^4.12.0",
-    "eslint-loader": "^1.3.0",
-    "eslint-plugin-babel": "^4.1.2",
-    "webpack": "^3.8.1",
-    "webpack-dev-server": "^2.9.5"
+    "awesome-typescript-loader": "^5.2.0",
+    "typescript": "^3.0.1",
+    "webpack": "^4.16.5",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
   }
 }
